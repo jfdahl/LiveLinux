@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+install_mode=${1}
+echo $install_mode
+exit
+
 # Setup working folder
 current_location=$(pwd)
 if [[ "$current_location" != "/tmp/bin" ]]; then

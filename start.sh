@@ -14,12 +14,16 @@
     #     sudo mount -t vboxsf shared_folder_name /mnt
 
 ip_addr=${1}
-if [[ "${ip_addr}" = "local" ]]; then
+username=xubuntu
+
+if [[ "${ip_addr}" = "usb" ]]; then
     cp -r bin /tmp/
     cd /tmp/bin
-    time bash /tmp/bin/setup.sh
+    time bash /tmp/bin/setup.sh "usb"
+elif [[ "${ip_addr}" = "git" ]]; then
+    time bash ./bin/setup.sh "git"
 else
     ssh_options='-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
-    scp -r $ssh_options bin mint@${ip_addr}:/tmp/
-    time ssh $ssh_options mint@${ip_addr} bash /tmp/bin/setup.sh
+    scp -r $ssh_options bin ${username}@${ip_addr}:/tmp/
+    time ssh $ssh_options ${username}@${ip_addr} bash /tmp/bin/setup.sh "net"
 fi
