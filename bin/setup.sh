@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
 
 install_mode=${1}
-echo $install_mode
-exit
+
+if [[ "$USER" == "xubuntu" ]] && [[ "$HOSTNAME" == "xubuntu" ]]; then
+    
+elif [[ "$USER" == "mint" ]] && [[ "$HOSTNAME" == "mint" ]]; then
+
+fi
 
 # Setup working folder
 current_location=$(pwd)
-if [[ "$current_location" != "/tmp/bin" ]]; then
-    mkdir -p /tmp/bin
-    cp * /tmp/bin/
-    cd /tmp/bin
-fi
-sudo chmod -R 777 /tmp/bin
 
 #  Set system timezone
 sudo ln -fs /usr/share/zoneinfo/US/Central /etc/localtime
@@ -29,7 +27,7 @@ sudo ln -fs /usr/share/zoneinfo/US/Central /etc/localtime
 # EXECUTE WHEN THIS SCRIPT COMPLETES: sudo service networking restart
 
 # Setup user
-/tmp/bin/configure_user.sh
+./configure_user.sh
 
 # Final action:
 # Setup firewall

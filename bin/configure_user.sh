@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ln -s /tmp/bin ${HOME}/bin
+ln -s ./bin ${HOME}/bin
 cd ${HOME}/bin
 cat << EOF >> ${HOME}/.bashrc
 
