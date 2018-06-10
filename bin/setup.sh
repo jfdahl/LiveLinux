@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-install_mode=${1}
-
 if [[ "$USER" == "xubuntu" ]] && [[ "$HOSTNAME" == "xubuntu" ]]; then
     
 elif [[ "$USER" == "mint" ]] && [[ "$HOSTNAME" == "mint" ]]; then
@@ -15,19 +13,18 @@ current_location=$(pwd)
 sudo ln -fs /usr/share/zoneinfo/US/Central /etc/localtime
 
 # Configure package manager.
-# sudo sed -i.bak 's|http://archive|http://us.archive|g' /etc/apt/sources.list
-# sudo apt-get update -qq
+sudo sed -i.bak 's|http://archive|http://us.archive|g' /etc/apt/sources.list
+sudo apt-get update -qq
 
 # Disable IPV6 (Broken in Mint live):
-# cat << EOF | sudo tee -a /etc/sysctl.conf > /dev/null
-# net.ipv6.conf.all.disable_ipv6 = 1
-# net.ipv6.conf.default.disable_ipv6 = 1
-# net.ipv6.conf.lo.disable_ipv6 = 1
-# EOF
+sudo mkdir -p /etc/sysctl.d
+cat | sudo tee -a /etc/sysctl.d/99-sysctl.conf > /dev/null  << EOF 
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+EOF
 # EXECUTE WHEN THIS SCRIPT COMPLETES: sudo service networking restart
 
-# Setup user
-./configure_user.sh
 
 # Final action:
 # Setup firewall
